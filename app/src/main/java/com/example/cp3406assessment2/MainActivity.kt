@@ -27,6 +27,12 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Shelf(
                         books = demoBooks(),
+//                        books = findFinishedBooks(demoBooks()),
+//                        books = findUnfinishedBooks(demoBooks()),
+//                        books = findUnreadBooks(demoBooks()),
+//                        books = demoBooks().sortedBy { it.title },
+//                        books = demoBooks().sortedBy { it.author },
+//                        books = demoBooks().sortedBy{ calculatePercentageRead(it) },
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -50,8 +56,41 @@ fun demoBooks(): List<Book> {
         Book("Dracula", "Bram Stoker", "Horror", 1897, 354),
         Book("The Adventures of Sherlock Holmes", "Arthur Conan Doyle", "Mystery", 1982, 307, 307, 4),
     )
-
     return books
+}
+
+fun findFinishedBooks(books: List<Book>): MutableList<Book> {
+    val finishedBooks = mutableListOf<Book>()
+    for (book in books) {
+        if (book.totalPageCount == book.readPageCount) {
+            finishedBooks.add(book)
+        }
+    }
+    return finishedBooks
+}
+
+fun findUnfinishedBooks(books: List<Book>): MutableList<Book> {
+    val unfinishedBooks = mutableListOf<Book>()
+    for (book in books) {
+        if (book.totalPageCount > book.readPageCount && book.readPageCount != 0) {
+            unfinishedBooks.add(book)
+        }
+    }
+    return unfinishedBooks
+}
+
+fun findUnreadBooks(books: List<Book>): MutableList<Book> {
+    val unreadBooks = mutableListOf<Book>()
+    for(book in books) {
+        if(book.readPageCount == 0) {
+            unreadBooks.add(book)
+        }
+    }
+    return unreadBooks
+}
+
+fun calculatePercentageRead(book: Book): Double {
+    return (book.readPageCount.toDouble() / book.totalPageCount.toDouble()) * 100
 }
 
 @Composable
@@ -66,10 +105,10 @@ fun Shelf(books: List<Book>, modifier: Modifier = Modifier) {
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "${books[index].title}\nby ${books[index].author}" +
+                    text = "${books[index].title} (${books[index].year})\nby ${books[index].author}" +
                             "\nGenre: ${books[index].genre}" +
-                            "\nPublished in: ${books[index].year}" +
                             "\nPages read: ${books[index].readPageCount} / ${books[index].totalPageCount}" +
+                            " (${calculatePercentageRead(books[index]).toInt()}%)" +
                             "\nRating: ${books[index].rating} / 5",
                     modifier = Modifier.padding(16.dp)
                 )
