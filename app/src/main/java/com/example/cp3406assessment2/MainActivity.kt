@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.cp3406assessment2.model.Book
 import com.example.cp3406assessment2.ui.theme.CP3406Assessment2Theme
 
 class MainActivity : ComponentActivity() {
@@ -24,7 +25,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             CP3406Assessment2Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Book(
+                    Shelf(
+                        books = demoBooks(),
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -33,26 +35,27 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Book(modifier: Modifier = Modifier) {
-    val books = listOf(
-        "A Tale of Two Cities",
-        "The Little Prince",
-        "Harry Potter and the Philosopher's Stone",
-        "And Then There Were None",
-        "The Hobbit",
-        "Alice's Adventures in Wonderland",
-        "The Da Vinci Code",
-        "The Catcher in the Rye",
-        "Anne of Green Gables",
-        "Charlotte's Web",
-        "Moby Dick",
-        "Frankenstein",
-        "Dracula",
-        "The Adventures of Sherlock Holmes",
-        "Around the World in Eighty Days"
+fun demoBooks(): List<Book> {
+    val books = listOf<Book>(
+        Book("A Tale of Two Cities", "Charles Dickens", "Historical", 1859, 392, 392, 4),
+        Book("The Little Prince", "Antoine de Saint-Exupéry", "Fantasy", 1943, 260),
+        Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", "Fantasy", 1997, 224, 224, 2),
+        Book("And Then There Were None", "Agatha Christie", "Mystery", 1939, 272, 272, 5),
+        Book("The Hobbit", "J. R. R. Tolkien", "Fantasy", 1937, 310, 128),
+        Book("Alice's Adventures in Wonderland", "Lewis Carroll", "Fantasy", 1865, 96),
+        Book("The Catcher in the Rye", "J. D. Salinger", "Fiction", 1951, 234, 80),
+        Book("Anne of Green Gables", "Lucy Maud Montgomery", "Fiction", 1908, 299, 299, 3),
+        Book("Moby Dick", "Herman Melville", "Adventure", 1851, 635, 635, 4),
+        Book("Frankenstein", "Mary Shelley", "Science fiction", 1818, 280, 280, 5),
+        Book("Dracula", "Bram Stoker", "Horror", 1897, 354),
+        Book("The Adventures of Sherlock Holmes", "Arthur Conan Doyle", "Mystery", 1982, 307, 307, 4),
     )
 
+    return books
+}
+
+@Composable
+fun Shelf(books: List<Book>, modifier: Modifier = Modifier) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(256.dp)
     ) {
@@ -63,7 +66,11 @@ fun Book(modifier: Modifier = Modifier) {
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = books[index],
+                    text = "${books[index].title}\nby ${books[index].author}" +
+                            "\nGenre: ${books[index].genre}" +
+                            "\nPublished in: ${books[index].year}" +
+                            "\nPages read: ${books[index].readPageCount} / ${books[index].totalPageCount}" +
+                            "\nRating: ${books[index].rating} / 5",
                     modifier = Modifier.padding(16.dp)
                 )
             }
