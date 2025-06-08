@@ -7,8 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -51,9 +50,9 @@ fun demoBooks(): List<Book> {
         Book("Alice's Adventures in Wonderland", "Lewis Carroll", "Fantasy", 1865, 96),
         Book("The Catcher in the Rye", "J. D. Salinger", "Fiction", 1951, 234, 80),
         Book("Anne of Green Gables", "Lucy Maud Montgomery", "Fiction", 1908, 299, 299, 3),
-        Book("Moby Dick", "Herman Melville", "Adventure", 1851, 635, 635, 4),
+        Book("Moby Dick", "Herman Melville", "Adventure", 1851, 635, 30),
         Book("Frankenstein", "Mary Shelley", "Science fiction", 1818, 280, 280, 5),
-        Book("Dracula", "Bram Stoker", "Horror", 1897, 354),
+        Book("Dracula", "Bram Stoker", "Horror", 1897, 354, 302),
         Book("The Adventures of Sherlock Holmes", "Arthur Conan Doyle", "Mystery", 1982, 307, 307, 4),
     )
     return books
@@ -94,25 +93,28 @@ fun calculatePercentageRead(book: Book): Double {
 }
 
 @Composable
-fun Shelf(books: List<Book>, modifier: Modifier = Modifier) {
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(256.dp)
+fun BookCard(book: Book, modifier: Modifier = Modifier) {
+    Card(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
     ) {
+        Text(
+            text = "${book.title} (${book.year})\nby ${book.author}" +
+                    "\nGenre: ${book.genre}" +
+                    "\nPages read: ${book.readPageCount} / ${book.totalPageCount}" +
+                    " (${calculatePercentageRead(book).toInt()}%)" +
+                    "\nRating: ${book.rating} / 5",
+            modifier = Modifier.padding(16.dp)
+        )
+    }
+}
+
+@Composable
+fun Shelf(books: List<Book>, modifier: Modifier = Modifier) {
+    LazyColumn {
         items(books.size) { index ->
-            Card(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth()
-            ) {
-                Text(
-                    text = "${books[index].title} (${books[index].year})\nby ${books[index].author}" +
-                            "\nGenre: ${books[index].genre}" +
-                            "\nPages read: ${books[index].readPageCount} / ${books[index].totalPageCount}" +
-                            " (${calculatePercentageRead(books[index]).toInt()}%)" +
-                            "\nRating: ${books[index].rating} / 5",
-                    modifier = Modifier.padding(16.dp)
-                )
-            }
+            BookCard(books[index])
         }
     }
 }
