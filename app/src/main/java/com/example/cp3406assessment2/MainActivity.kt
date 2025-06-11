@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -45,8 +46,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     innerPadding ->
                     Shelf(
-                        books = demoBooks().sortedBy{ calculatePercentageRead(it) },
-                        modifier = Modifier.padding(innerPadding),
+                        books = demoBooks().sortedBy{ it.calculatePercentageRead(it) },
+                        modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
@@ -100,10 +101,6 @@ fun findUnreadBooks(books: List<Book>): MutableList<Book> {
         }
     }
     return unreadBooks
-}
-
-fun calculatePercentageRead(book: Book): Double {
-    return (book.readPageCount.toDouble() / book.totalPageCount.toDouble()) * 100
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -182,11 +179,7 @@ fun BookCard(book: Book, modifier: Modifier = Modifier) {
         modifier = Modifier.padding(8.dp).fillMaxWidth()
     ) {
         Text(
-            text = "${book.title} (${book.year})\nby ${book.author}" +
-                    "\nGenre: ${book.genre}" +
-                    "\nPages read: ${book.readPageCount} / ${book.totalPageCount}" +
-                    " (${calculatePercentageRead(book).toInt()}%)" +
-                    "\nRating: ${book.rating} / 5",
+            text = book.displayBook(book),
             modifier = Modifier.padding(16.dp)
         )
     }
