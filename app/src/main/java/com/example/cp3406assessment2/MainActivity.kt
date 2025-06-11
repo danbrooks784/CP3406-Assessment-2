@@ -45,10 +45,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) {
                     innerPadding ->
-                    Shelf(
-                        books = demoBooks().sortedBy{ it.calculatePercentageRead(it) },
+                    Column(
                         modifier = Modifier.padding(innerPadding)
-                    )
+                    ) {
+                        Shelf(
+                            books = demoBooks().sortedBy{ it.calculatePercentageRead(it) },
+                            modifier = Modifier.padding(innerPadding)
+                        )
+                    }
                 }
             }
         }
