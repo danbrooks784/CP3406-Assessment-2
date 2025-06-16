@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -27,14 +25,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.cp3406assessment2.model.Book
-import com.example.cp3406assessment2.ui.AppViewModel
 import com.example.cp3406assessment2.ui.theme.AppTheme
+import com.example.cp3406assessment2.views.BookList
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,22 +46,12 @@ class MainActivity : ComponentActivity() {
                     Column(
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        ShelfScreen()
+                        BookList()
                     }
                 }
             }
         }
     }
-}
-
-@Composable
-fun ShelfScreen(
-    appViewModel: AppViewModel = viewModel()
-) {
-    val appUiState by appViewModel.uiState.collectAsState()
-    Shelf(
-        books = appViewModel.books.sortedBy{ it.calculatePercentageRead(it) }
-    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -137,26 +121,5 @@ fun LogButton(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(horizontal = 8.dp),
             text = "New Book"
         )
-    }
-}
-
-@Composable
-fun BookCard(book: Book, modifier: Modifier = Modifier) {
-    Card(
-        modifier = Modifier.padding(8.dp).fillMaxWidth()
-    ) {
-        Text(
-            text = book.displayBook(book),
-            modifier = Modifier.padding(16.dp)
-        )
-    }
-}
-
-@Composable
-fun Shelf(books: List<Book>, modifier: Modifier = Modifier) {
-    LazyColumn {
-        items(books.size) { index ->
-            BookCard(books[index])
-        }
     }
 }
