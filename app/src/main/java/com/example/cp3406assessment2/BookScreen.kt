@@ -26,6 +26,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.cp3406assessment2.ui.HomeScreen
+import com.example.cp3406assessment2.ui.NewBookScreen
+import com.example.cp3406assessment2.ui.SearchScreen
+import com.example.cp3406assessment2.ui.SettingsScreen
 import com.example.cp3406assessment2.viewmodel.BookViewModel
 import com.example.cp3406assessment2.ui.ShelfScreen
 import org.koin.androidx.compose.koinViewModel
@@ -115,15 +119,15 @@ fun BookApp(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = BookScreen.Shelf.name,
+            startDestination = BookScreen.NewBook.name,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(route = BookScreen.Home.name) {
-                Text("Home screen")
+                HomeScreen()
             }
 
             composable(route = BookScreen.Search.name) {
-                Text("Search screen")
+                SearchScreen()
             }
 
             composable(route = BookScreen.Shelf.name) {
@@ -133,11 +137,16 @@ fun BookApp(
             }
 
             composable(route = BookScreen.Settings.name) {
-                Text("Settings screen")
+                SettingsScreen()
             }
 
             composable(route = BookScreen.NewBook.name) {
-                Text("Add book screen")
+                NewBookScreen(
+                    onAddButtonClicked = {
+                        viewModel.addBook(it)
+                        navController.popBackStack()
+                    }
+                )
             }
         }
     }
