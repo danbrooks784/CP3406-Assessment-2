@@ -8,7 +8,6 @@ class BookViewModel(
     private val bookRepository: BookRepository
 ) : ViewModel() {
     val books = bookRepository.getBooks()
-    fun displayBook(book: Book) = bookRepository.displayBook(book)
 
     fun addBook(book: Book) {
         books.add(book)
