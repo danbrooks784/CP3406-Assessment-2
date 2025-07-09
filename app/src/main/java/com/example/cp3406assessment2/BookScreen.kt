@@ -28,6 +28,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cp3406assessment2.ui.HomeScreen
 import com.example.cp3406assessment2.ui.NewBookScreen
+import com.example.cp3406assessment2.ui.SearchResultScreen
 import com.example.cp3406assessment2.ui.SearchScreen
 import com.example.cp3406assessment2.ui.SettingsScreen
 import com.example.cp3406assessment2.viewmodel.BookViewModel
@@ -37,6 +38,7 @@ import org.koin.androidx.compose.koinViewModel
 enum class BookScreen {
     Home,
     Search,
+    SearchResult,
     Shelf,
     Settings,
     NewBook
@@ -109,8 +111,8 @@ fun BookApp(
                     contentDescription = "New Book button"
                 )
                 Text(
-                    modifier = Modifier.padding(horizontal = 8.dp),
-                    text = "New Book"
+                    text = "New Book",
+                    modifier = Modifier.padding(horizontal = 8.dp)
                 )
             }
         },
@@ -119,7 +121,7 @@ fun BookApp(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = BookScreen.NewBook.name,
+            startDestination = BookScreen.Search.name,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(route = BookScreen.Home.name) {
@@ -127,7 +129,19 @@ fun BookApp(
             }
 
             composable(route = BookScreen.Search.name) {
-                SearchScreen()
+                SearchScreen(
+                    onSearch = {
+                        query: String, filter: String ->  viewModel.searchQuery(query, filter)
+                        navController.navigate(BookScreen.SearchResult.name)
+                    }
+                )
+            }
+
+            composable(route = BookScreen.SearchResult.name) {
+                SearchResultScreen(
+                    search = viewModel.search,
+                    searchType = viewModel.searchType
+                )
             }
 
             composable(route = BookScreen.Shelf.name) {
