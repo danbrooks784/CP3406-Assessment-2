@@ -26,6 +26,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.cp3406assessment2.navigation.Screens
 import com.example.cp3406assessment2.ui.HomeScreen
 import com.example.cp3406assessment2.ui.NewBookScreen
 import com.example.cp3406assessment2.ui.SearchResultScreen
@@ -34,15 +35,6 @@ import com.example.cp3406assessment2.ui.SettingsScreen
 import com.example.cp3406assessment2.viewmodel.BookViewModel
 import com.example.cp3406assessment2.ui.ShelfScreen
 import org.koin.androidx.compose.koinViewModel
-
-enum class BookScreen {
-    Home,
-    Search,
-    SearchResult,
-    Shelf,
-    Settings,
-    NewBook
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,7 +48,7 @@ fun BookApp(
                 title = { Text("Bookshelf App") },
                 actions = {
                     IconButton(
-                        onClick = { navController.navigate(BookScreen.Settings.name) }
+                        onClick = { navController.navigate(Screens.SettingsScreen.route) }
                     ) {
                         Icon(
                             Icons.Default.Settings,
@@ -74,7 +66,7 @@ fun BookApp(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     IconButton(
-                        onClick = { navController.navigate(BookScreen.Home.name) }
+                        onClick = { navController.navigate(Screens.HomeScreen.route) }
                     ) {
                         Icon(
                             Icons.Default.Home,
@@ -82,7 +74,7 @@ fun BookApp(
                         )
                     }
                     IconButton(
-                        onClick = { navController.navigate(BookScreen.Search.name) }
+                        onClick = { navController.navigate(Screens.SearchScreen.route) }
                     ) {
                         Icon(
                             Icons.Default.Search,
@@ -90,7 +82,7 @@ fun BookApp(
                         )
                     }
                     IconButton(
-                        onClick = { navController.navigate(BookScreen.Shelf.name) }
+                        onClick = { navController.navigate(Screens.ShelfScreen.route) }
                     ) {
                         Icon(
                             Icons.AutoMirrored.Filled.List,
@@ -104,7 +96,7 @@ fun BookApp(
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 modifier = Modifier.padding(2.dp),
-                onClick = { navController.navigate(BookScreen.NewBook.name) }
+                onClick = { navController.navigate(Screens.NewBookScreen.route) }
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
@@ -121,46 +113,46 @@ fun BookApp(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = BookScreen.Search.name,
+            startDestination = Screens.HomeScreen.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(route = BookScreen.Home.name) {
+            composable(Screens.HomeScreen.route) {
                 HomeScreen()
             }
 
-            composable(route = BookScreen.Search.name) {
+            composable(Screens.SearchScreen.route) {
                 SearchScreen(
                     onSearch = {
                         query: String, filter: String ->  viewModel.searchQuery(query, filter)
-                        navController.navigate(BookScreen.SearchResult.name)
+                        navController.navigate(Screens.SearchResultScreen.route)
                     }
                 )
             }
 
-            composable(route = BookScreen.SearchResult.name) {
+            composable(Screens.SearchResultScreen.route) {
                 SearchResultScreen(
                     search = viewModel.search,
                     searchType = viewModel.searchType
                 )
             }
 
-            composable(route = BookScreen.Shelf.name) {
+            composable(Screens.ShelfScreen.route) {
                 ShelfScreen(
                     books = viewModel.books
                 )
             }
 
-            composable(route = BookScreen.Settings.name) {
-                SettingsScreen()
-            }
-
-            composable(route = BookScreen.NewBook.name) {
+            composable(Screens.NewBookScreen.route) {
                 NewBookScreen(
                     onAddButtonClicked = {
                         viewModel.addBook(it)
                         navController.popBackStack()
                     }
                 )
+            }
+
+            composable(Screens.SettingsScreen.route) {
+                SettingsScreen()
             }
         }
     }
