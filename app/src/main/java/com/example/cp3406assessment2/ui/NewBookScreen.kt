@@ -30,7 +30,7 @@ import com.example.cp3406assessment2.data.Book
 
 @Composable
 fun NewBookScreen(
-    onAddButtonClicked: (Book) -> Unit
+    onAddButtonPressed: (Book) -> Unit
 ) {
     var title by remember { mutableStateOf("") }
 
@@ -113,7 +113,7 @@ fun NewBookScreen(
         Button(
             onClick = {
                 book = Book(title, author, genre, year, totalPageCount, readPageCount, rating)
-                onAddButtonClicked(book)
+                onAddButtonPressed(book)
             },
             modifier = Modifier.padding(16.dp).align(alignment = Alignment.CenterHorizontally)
         ) {
