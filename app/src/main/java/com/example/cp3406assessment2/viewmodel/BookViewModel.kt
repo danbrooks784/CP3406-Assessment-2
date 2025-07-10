@@ -12,8 +12,14 @@ class BookViewModel(
     lateinit var search: String
     lateinit var searchType: String
 
+    lateinit var bookToEdit: Book
+
     fun addBook(book: Book) {
         books.add(book)
+    }
+
+    fun deleteBook(book: Book) {
+        books.remove(book)
     }
 
     fun searchQuery(query: String, filter: String) {
