@@ -27,6 +27,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cp3406assessment2.navigation.Screens
+import com.example.cp3406assessment2.ui.EditBookScreen
 import com.example.cp3406assessment2.ui.HomeScreen
 import com.example.cp3406assessment2.ui.NewBookScreen
 import com.example.cp3406assessment2.ui.SearchResultScreen
@@ -113,7 +114,7 @@ fun BookApp(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screens.HomeScreen.route,
+            startDestination = Screens.ShelfScreen.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screens.HomeScreen.route) {
@@ -138,14 +139,33 @@ fun BookApp(
 
             composable(Screens.ShelfScreen.route) {
                 ShelfScreen(
-                    books = viewModel.books
+                    books = viewModel.books,
+                    onEditButtonPressed = {
+                        viewModel.bookToEdit = it
+                        navController.navigate(Screens.EditBookScreen.route)
+                    }
                 )
             }
 
             composable(Screens.NewBookScreen.route) {
                 NewBookScreen(
-                    onAddButtonClicked = {
+                    onAddButtonPressed = {
                         viewModel.addBook(it)
+                        navController.popBackStack()
+                    }
+                )
+            }
+
+            composable(Screens.EditBookScreen.route) {
+                EditBookScreen(
+                    book = viewModel.bookToEdit,
+                    onSaveButtonPressed = {
+                        viewModel.deleteBook(viewModel.bookToEdit)
+                        viewModel.addBook(it)
+                        navController.popBackStack()
+                    },
+                    onDeleteButtonPressed = {
+                        viewModel.deleteBook(viewModel.bookToEdit)
                         navController.popBackStack()
                     }
                 )
