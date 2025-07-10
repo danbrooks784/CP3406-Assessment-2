@@ -1,13 +1,8 @@
 package com.example.cp3406assessment2.ui
 
 /*
-    IMPORTANT: Title, author, genre, year and total page count fields are ONLY there to get it
-    working before API calls are added! In the actual implementation, the user can press this
-    button upon searching for a book to add it to their shelf. These fields will be automatically
-    filled in.
-
-    Also, it needs to be abstracted into the viewmodel and book repository.
- */
+    TODO: Input validation
+*/
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cp3406assessment2.data.Book
+
 @Composable
 fun EditBookScreen(
     book: Book,
