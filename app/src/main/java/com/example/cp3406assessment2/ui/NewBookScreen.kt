@@ -36,8 +36,6 @@ fun NewBookScreen(
 
     var author by remember { mutableStateOf("") }
 
-    var genre by remember { mutableStateOf("") }
-
     var yearInput by remember { mutableStateOf("") }
     val year = yearInput.toIntOrNull() ?: 0
 
@@ -63,12 +61,6 @@ fun NewBookScreen(
             value = author,
             onValueChange = { author = it },
             label = "Author"
-        )
-
-        InputField(
-            value = genre,
-            onValueChange = { genre = it },
-            label = "Genre"
         )
 
         InputField(
@@ -112,7 +104,7 @@ fun NewBookScreen(
 
         Button(
             onClick = {
-                book = Book(title, author, genre, year, totalPageCount, readPageCount, rating)
+                book = Book(title, author, year, totalPageCount, readPageCount, rating)
                 onAddButtonPressed(book)
             },
             modifier = Modifier.padding(16.dp).align(alignment = Alignment.CenterHorizontally)

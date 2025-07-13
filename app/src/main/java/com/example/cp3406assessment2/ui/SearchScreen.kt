@@ -95,11 +95,6 @@ fun SearchScreen(
                     )
 
                     DropdownMenuItem(
-                        text = { Text("Genre") },
-                        onClick = { filter = "genre" }
-                    )
-
-                    DropdownMenuItem(
                         text = { Text("Year") },
                         onClick = { filter = "year" }
                     )

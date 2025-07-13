@@ -1,11 +1,22 @@
 package com.example.cp3406assessment2.data
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Book(
+    @SerialName("title")
     val title: String = "Title",
+
+    @SerialName("author")
     val author: String = "Author",
-    val genre: String = "Genre",
+
+    @SerialName("year")
     val year: Int = 1900,
+
+    @SerialName("page_count")
     val totalPageCount: Int = 0,
+
     var readPageCount: Int = 0,
     var rating: Int = 0
 )
