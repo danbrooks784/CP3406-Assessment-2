@@ -8,15 +8,16 @@ data class Book(
     @SerialName("title")
     val title: String = "Title",
 
-    @SerialName("author")
-    val author: String = "Author",
+    @SerialName("authors")
+    val authors: List<String> = emptyList<String>(),
 
-    @SerialName("year")
-    val year: Int = 1900,
+    @SerialName("publishedDate")
+    val year: String = "",
 
-    @SerialName("page_count")
+    @SerialName("pageCount")
     val totalPageCount: Int = 0,
 
     var readPageCount: Int = 0,
-    var rating: Int = 0
+    var rating: Int = 0,
+    var review: String = ""
 )
