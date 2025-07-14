@@ -1,9 +1,11 @@
 package com.example.cp3406assessment2.di
 
+import com.example.cp3406assessment2.data.BookAPI
 import com.example.cp3406assessment2.data.BookRepository
 import com.example.cp3406assessment2.data.BookRepositoryImpl
 import com.example.cp3406assessment2.viewmodel.BookViewModel
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import org.koin.dsl.module
@@ -11,7 +13,11 @@ import retrofit2.Retrofit
 
 val appModules = module {
     single<BookRepository> {
-        BookRepositoryImpl()
+        BookRepositoryImpl(get(), get())
+    }
+
+    single {
+        Dispatchers.IO
     }
 
     single{
@@ -24,7 +30,11 @@ val appModules = module {
             .addConverterFactory(
                 json.asConverterFactory(contentType = "application/json".toMediaType())
             )
-            .baseUrl( "https://openlibrary.org/search.json" )
+            .baseUrl( "https://www.googleapis.com/books/v1/" )
             .build()
+    }
+
+    single {
+        get<Retrofit>().create(BookAPI::class.java)
     }
 }
