@@ -7,12 +7,10 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun SearchResultScreen(
-    search: String,
-    searchType: String
+    search: String
 ) {
     Column {
         Text("Search result screen")
         Text(search)
-        Text(searchType)
     }
 }

@@ -34,18 +34,15 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun SearchScreen(
-    onSearch: (String, String) -> Unit
+    onSearch: (String) -> Unit
 ) {
     var query by remember { mutableStateOf("") }
-    var filter by remember { mutableStateOf("title") }
-    var isExpanded by remember { mutableStateOf(false) }
 
     Column {
         Text(
             text = "Search for a book",
             fontSize = 30.sp,
-            modifier = Modifier.padding(16.dp)
-                .align(alignment = Alignment.CenterHorizontally)
+            modifier = Modifier.padding(16.dp).align(alignment = Alignment.CenterHorizontally)
         )
 
         TextField(
@@ -56,63 +53,54 @@ fun SearchScreen(
                 imeAction = ImeAction.Search
             ),
             keyboardActions = KeyboardActions(
-                onSearch = { onSearch(query, filter) }
+                onSearch = { onSearch(query) }
             ),
             modifier = Modifier.padding(16.dp).fillMaxWidth()
         )
 
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+        Button(
+            onClick = { onSearch(query) },
+            modifier = Modifier.fillMaxWidth(0.7f).align(Alignment.CenterHorizontally)
         ) {
-            Box {
-                Button(
-                    onClick = { isExpanded = !isExpanded }
-                ) {
-                    Text(
-                        text = "Search by: $filter",
-                        modifier = Modifier.padding(horizontal = 8.dp)
-                    )
-                    Icon(
-                        Icons.Default.KeyboardArrowDown,
-                        contentDescription = "Filter button"
-                    )
-                }
-
-                DropdownMenu(
-                    expanded = isExpanded,
-                    onDismissRequest = { isExpanded = false },
-                    modifier = Modifier.fillMaxWidth(0.4f)
-                ) {
-                    DropdownMenuItem(
-                        text = { Text("Title") },
-                        onClick = { filter = "title" }
-                    )
-
-                    DropdownMenuItem(
-                        text = { Text("Author") },
-                        onClick = { filter = "author" }
-                    )
-
-                    DropdownMenuItem(
-                        text = { Text("Year") },
-                        onClick = { filter = "year" }
-                    )
-                }
-            }
-
-            Button(
-                onClick = { onSearch(query, filter) }
-            ) {
-                Text(
-                    text = "Search",
-                    modifier = Modifier.padding(horizontal = 8.dp)
-                )
-                Icon(
-                    Icons.Default.Search,
-                    contentDescription = "Search button"
-                )
-            }
+            Text(
+                text = "Search",
+                modifier = Modifier.padding(horizontal = 8.dp)
+            )
+            Icon(
+                Icons.Default.Search,
+                contentDescription = "Search button"
+            )
         }
     }
 }
+
+//            Box {
+//                Button(
+//                    onClick = { isExpanded = !isExpanded }
+//                ) {
+//                    Text(
+//                        text = "Search by: $filter",
+//                        modifier = Modifier.padding(horizontal = 8.dp)
+//                    )
+//                    Icon(
+//                        Icons.Default.KeyboardArrowDown,
+//                        contentDescription = "Filter button"
+//                    )
+//                }
+//
+//                DropdownMenu(
+//                    expanded = isExpanded,
+//                    onDismissRequest = { isExpanded = false },
+//                    modifier = Modifier.fillMaxWidth(0.4f)
+//                ) {
+//                    DropdownMenuItem(
+//                        text = { Text("Title") },
+//                        onClick = { filter = "title" }
+//                    )
+//
+//                    DropdownMenuItem(
+//                        text = { Text("Author") },
+//                        onClick = { filter = "author" }
+//                    )
+//                }
+//            }

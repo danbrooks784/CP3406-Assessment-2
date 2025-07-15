@@ -114,7 +114,7 @@ fun BookApp(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screens.ShelfScreen.route,
+            startDestination = Screens.HomeScreen.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screens.HomeScreen.route) {
@@ -124,7 +124,7 @@ fun BookApp(
             composable(Screens.SearchScreen.route) {
                 SearchScreen(
                     onSearch = {
-                        query: String, filter: String ->  viewModel.searchQuery(query, filter)
+                        query: String ->  viewModel.searchQuery(query)
                         navController.navigate(Screens.SearchResultScreen.route)
                     }
                 )
@@ -132,14 +132,13 @@ fun BookApp(
 
             composable(Screens.SearchResultScreen.route) {
                 SearchResultScreen(
-                    search = viewModel.search,
-                    searchType = viewModel.searchType
+                    search = viewModel.search
                 )
             }
 
             composable(Screens.ShelfScreen.route) {
                 ShelfScreen(
-                    books = viewModel.books,
+                    books = viewModel.retrieveBooks(),
                     onEditButtonPressed = {
                         viewModel.bookToEdit = it
                         navController.navigate(Screens.EditBookScreen.route)
