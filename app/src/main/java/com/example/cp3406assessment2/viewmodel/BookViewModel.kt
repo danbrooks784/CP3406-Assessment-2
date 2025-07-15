@@ -22,7 +22,7 @@ class BookViewModel(
     private fun getBooks() {
         bookUiState.value = BookUiState(isLoading = true)
         viewModelScope.launch {
-            when (val result = bookRepository.getBooks()) {
+            when (val result = bookRepository.getBooks("test")) {
                 is NetworkResult.Success -> {
                     bookUiState.update {
                         it.copy(isLoading = false, books = result.data)
@@ -38,8 +38,6 @@ class BookViewModel(
     }
 
     lateinit var search: String
-    lateinit var searchType: String
-
     lateinit var bookToEdit: Book
 
     fun addBook(book: Book) {
@@ -54,9 +52,8 @@ class BookViewModel(
         return bookUiState.value.books
     }
 
-    fun searchQuery(query: String, filter: String) {
+    fun searchQuery(query: String) {
         search = query
-        searchType = filter
     }
 
     init {

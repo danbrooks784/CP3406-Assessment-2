@@ -4,18 +4,16 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlin.toString
 
-/*
-    TODO: Pass query into function
- */
-
 class BookRepositoryImpl(
     private val bookAPI: BookAPI,
     private val dispatcher: CoroutineDispatcher
 ) : BookRepository {
-    override suspend fun getBooks(): NetworkResult<MutableList<Book>> {
+    override suspend fun getBooks(
+        query: String
+    ): NetworkResult<MutableList<Book>> {
         return withContext(dispatcher) {
             try {
-                val response = bookAPI.searchBooks(query = "ring")
+                val response = bookAPI.searchBooks(query = query, maxResults = 10)
                 if (response.isSuccessful) {
                     val items = response.body()!!.items
                     var books = mutableListOf<Book>()

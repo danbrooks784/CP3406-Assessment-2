@@ -7,6 +7,7 @@ import retrofit2.http.Query
 interface BookAPI {
     @GET("volumes")
     suspend fun searchBooks(
-        @Query("q") query: String
+        @Query("q") query: String,
+        @Query("maxResults") maxResults: Int
     ): Response<APIResponse>
 }
