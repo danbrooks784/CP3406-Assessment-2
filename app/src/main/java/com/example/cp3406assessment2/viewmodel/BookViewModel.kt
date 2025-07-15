@@ -19,25 +19,6 @@ class BookViewModel(
 ) : ViewModel() {
     val bookUiState = MutableStateFlow(BookUiState())
 
-    private fun getBooks() {
-        bookUiState.value = BookUiState(isLoading = true)
-        viewModelScope.launch {
-            when (val result = bookRepository.getBooks("test")) {
-                is NetworkResult.Success -> {
-                    bookUiState.update {
-                        it.copy(isLoading = false, books = result.data)
-                    }
-                }
-                is NetworkResult.Error -> {
-                    bookUiState.update {
-                        it.copy(isLoading = false, error = result.error)
-                    }
-                }
-            }
-        }
-    }
-
-    lateinit var search: String
     lateinit var bookToEdit: Book
 
     fun addBook(book: Book) {
@@ -53,10 +34,20 @@ class BookViewModel(
     }
 
     fun searchQuery(query: String) {
-        search = query
-    }
-
-    init {
-        getBooks()
+        bookUiState.value = BookUiState(isLoading = true)
+        viewModelScope.launch {
+            when (val result = bookRepository.getBooks(query)) {
+                is NetworkResult.Success -> {
+                    bookUiState.update {
+                        it.copy(isLoading = false, searchResult = result.data)
+                    }
+                }
+                is NetworkResult.Error -> {
+                    bookUiState.update {
+                        it.copy(isLoading = false, error = result.error)
+                    }
+                }
+            }
+        }
     }
 }
