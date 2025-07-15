@@ -7,13 +7,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -22,6 +20,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -94,23 +93,8 @@ fun BookApp(
             }
         },
 
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                modifier = Modifier.padding(2.dp),
-                onClick = { navController.navigate(Screens.NewBookScreen.route) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = "New Book button"
-                )
-                Text(
-                    text = "New Book",
-                    modifier = Modifier.padding(horizontal = 8.dp)
-                )
-            }
-        },
-
         modifier = Modifier.fillMaxSize()
+
     ) { innerPadding ->
         NavHost(
             navController = navController,
@@ -124,7 +108,7 @@ fun BookApp(
             composable(Screens.SearchScreen.route) {
                 SearchScreen(
                     onSearch = {
-                        query: String ->  viewModel.searchQuery(query)
+                        query: String -> viewModel.searchQuery(query)
                         navController.navigate(Screens.SearchResultScreen.route)
                     }
                 )
@@ -132,7 +116,7 @@ fun BookApp(
 
             composable(Screens.SearchResultScreen.route) {
                 SearchResultScreen(
-                    search = viewModel.search
+                    uiState = viewModel.bookUiState.collectAsStateWithLifecycle()
                 )
             }
 
