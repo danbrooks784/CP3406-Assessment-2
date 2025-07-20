@@ -2,7 +2,6 @@ package com.example.cp3406assessment2.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.cp3406assessment2.data.database.BookDao
 
 @Database(
     entities = [BookEntity::class],

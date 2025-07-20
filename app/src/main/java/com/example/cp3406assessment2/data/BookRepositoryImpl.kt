@@ -1,6 +1,5 @@
 package com.example.cp3406assessment2.data
 
-import com.example.cp3406assessment2.data.Book
 import com.example.cp3406assessment2.data.api.BookAPI
 import com.example.cp3406assessment2.data.api.NetworkResult
 import kotlinx.coroutines.CoroutineDispatcher
