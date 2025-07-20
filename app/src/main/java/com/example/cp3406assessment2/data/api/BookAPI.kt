@@ -1,4 +1,4 @@
-package com.example.cp3406assessment2.data
+package com.example.cp3406assessment2.data.api
 
 import retrofit2.Response
 import retrofit2.http.GET
