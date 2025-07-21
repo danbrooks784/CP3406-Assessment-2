@@ -16,7 +16,7 @@ import retrofit2.Retrofit
 
 val appModules = module {
     single<BookRepository> {
-        BookRepositoryImpl(get(), get())
+        BookRepositoryImpl(get(), get(), get())
     }
 
     single {

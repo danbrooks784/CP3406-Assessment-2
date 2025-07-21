@@ -10,10 +10,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-/*
-    TODO: Update book repository instead of ui state!
- */
-
 class BookViewModel(
     private val bookRepository: BookRepository
 ) : ViewModel() {
@@ -36,7 +32,7 @@ class BookViewModel(
     fun searchQuery(query: String) {
         bookUiState.value = BookUiState(isLoading = true)
         viewModelScope.launch {
-            when (val result = bookRepository.getBooks(query)) {
+            when (val result = bookRepository.searchByQuery(query)) {
                 is NetworkResult.Success -> {
                     bookUiState.update {
                         it.copy(isLoading = false, searchResult = result.data)
