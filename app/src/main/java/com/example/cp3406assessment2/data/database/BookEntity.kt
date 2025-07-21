@@ -13,5 +13,6 @@ data class BookEntity(
     val totalPageCount: Int,
     var readPageCount: Int,
     var rating: Int,
-    var review: String
+    var review: String,
+    var isFavourite: Boolean
 )

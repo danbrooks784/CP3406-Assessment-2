@@ -22,5 +22,6 @@ data class Book(
 
     var readPageCount: Int = 0,
     var rating: Int = 0,
-    var review: String = ""
+    var review: String = "",
+    var isFavourite: Boolean = false
 )
