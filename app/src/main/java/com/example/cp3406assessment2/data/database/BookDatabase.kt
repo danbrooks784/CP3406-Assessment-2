@@ -2,6 +2,7 @@ package com.example.cp3406assessment2.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 @Database(
     entities = [BookEntity::class],
@@ -9,6 +10,7 @@ import androidx.room.RoomDatabase
     exportSchema = false
 )
 
+@TypeConverters(BookTypeConverters::class)
 abstract class BookDatabase : RoomDatabase() {
     abstract fun bookDao(): BookDao
 }
