@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Book(
     @SerialName("id")
-    val id: String = "",
+    val id: String = "Id",
 
     @SerialName("title")
     val title: String = "Title",
@@ -15,13 +15,13 @@ data class Book(
     val authors: List<String> = emptyList<String>(),
 
     @SerialName("publishedDate")
-    val year: String = "",
+    val year: String = "Year",
 
     @SerialName("pageCount")
     val totalPageCount: Int = 0,
 
     var readPageCount: Int = 0,
     var rating: Int = 0,
-    var review: String = "",
+    var review: String = "Review",
     var isFavourite: Boolean = false
 )
