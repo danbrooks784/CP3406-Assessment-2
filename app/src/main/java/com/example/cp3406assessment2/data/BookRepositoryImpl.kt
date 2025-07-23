@@ -37,12 +37,10 @@ class BookRepositoryImpl(
         }
     }
 
-    override suspend fun getBooksFromDatabase(): Flow<List<Book>> {
-        return withContext(dispatcher) {
-            bookDao.getAllBooks().map { books ->
-                books.map { bookEntity ->
-                    convertBookEntityToBook(bookEntity)
-                }
+    override fun getBooksFromDatabase(): Flow<List<Book>> {
+        return bookDao.getAllBooks().map { books ->
+            books.map { bookEntity ->
+                convertBookEntityToBook(bookEntity)
             }
         }
     }

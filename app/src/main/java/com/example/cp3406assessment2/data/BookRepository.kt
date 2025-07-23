@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface BookRepository {
     suspend fun searchByQuery(query: String): NetworkResult<List<Book>>
 
-    suspend fun getBooksFromDatabase(): Flow<List<Book>>
+    fun getBooksFromDatabase(): Flow<List<Book>>
 
     suspend fun getFavouriteBooks(): Flow<List<Book>>
 
