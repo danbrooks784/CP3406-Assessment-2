@@ -2,44 +2,29 @@ package com.example.cp3406assessment2.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cp3406assessment2.data.Book
 import com.example.cp3406assessment2.data.BookRepository
 import com.example.cp3406assessment2.data.api.NetworkResult
-import com.example.cp3406assessment2.view.BookUiState
+import com.example.cp3406assessment2.view.SearchUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class BookViewModel(
+class SearchViewModel(
     private val bookRepository: BookRepository
 ) : ViewModel() {
-    val bookUiState = MutableStateFlow(BookUiState())
-
-    lateinit var bookToEdit: Book
-
-    fun addBook(book: Book) {
-        bookUiState.value.books.add(book)
-    }
-
-    fun deleteBook(book: Book) {
-        bookUiState.value.books.remove(book)
-    }
-
-    fun retrieveBooks(): List<Book> {
-        return bookUiState.value.books
-    }
+    val searchUiState = MutableStateFlow(SearchUiState())
 
     fun searchQuery(query: String) {
-        bookUiState.value = BookUiState(isLoading = true)
+        searchUiState.value = SearchUiState(isLoading = true)
         viewModelScope.launch {
             when (val result = bookRepository.searchByQuery(query)) {
                 is NetworkResult.Success -> {
-                    bookUiState.update {
-                        it.copy(isLoading = false, searchResult = result.data)
+                    searchUiState.update {
+                        it.copy(isLoading = false, result = result.data)
                     }
                 }
                 is NetworkResult.Error -> {
-                    bookUiState.update {
+                    searchUiState.update {
                         it.copy(isLoading = false, error = result.error)
                     }
                 }
