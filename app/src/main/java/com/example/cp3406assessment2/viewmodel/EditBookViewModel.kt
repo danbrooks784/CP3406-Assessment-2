@@ -1,26 +1,29 @@
 package com.example.cp3406assessment2.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cp3406assessment2.data.Book
 import com.example.cp3406assessment2.data.BookRepository
-import com.example.cp3406assessment2.view.EditBookUiState
+import com.example.cp3406assessment2.ui.state.EditBookUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class EditBookViewModel(
     private val bookRepository: BookRepository,
-    bookToEdit: Book
 ) : ViewModel() {
-    val editBookUiState = MutableStateFlow(EditBookUiState(book = bookToEdit))
+    val editBookUiState = MutableStateFlow(EditBookUiState())
 
-    fun isPageCountValid(book: Book): Boolean {
-        return book.readPageCount <= book.totalPageCount
+    fun editBook(book: Book) {
+        editBookUiState.value.book = book
     }
 
-    fun saveBook() {
-        if (isPageCountValid(editBookUiState.value.book)) {
+    fun saveBook(readPageCount: Int, rating: Int, review: String) {
+        if (readPageCount <= editBookUiState.value.book.totalPageCount) {
             viewModelScope.launch {
+                editBookUiState.value.book.readPageCount = readPageCount
+                editBookUiState.value.book.rating = rating
+                editBookUiState.value.book.review = review
                 bookRepository.insertBook(editBookUiState.value.book)
             }
         }
@@ -28,7 +31,7 @@ class EditBookViewModel(
 
     fun removeBook() {
         viewModelScope.launch {
-            bookRepository.deleteBook(editBookUiState.value.book)
+            bookRepository.deleteBook(bookRepository.getBookById(editBookUiState.value.book.id))
         }
     }
 }
