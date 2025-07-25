@@ -1,5 +1,6 @@
 package com.example.cp3406assessment2.data
 
+import android.util.Log
 import com.example.cp3406assessment2.data.api.BookAPI
 import com.example.cp3406assessment2.data.api.NetworkResult
 import com.example.cp3406assessment2.data.database.BookDao
@@ -22,7 +23,15 @@ class BookRepositoryImpl(
                 if (response.isSuccessful) {
                     var searchResult = mutableListOf<Book>()
                     for (item in response.body()!!.items) {
-                        searchResult.add(item.volumeInfo)
+                        searchResult.add(
+                            Book(
+                                id = item.id,
+                                title = item.volumeInfo.title,
+                                authors = item.volumeInfo.authors,
+                                year = item.volumeInfo.year,
+                                totalPageCount = item.volumeInfo.totalPageCount
+                            )
+                        )
                     }
 
                     NetworkResult.Success(searchResult)
@@ -70,6 +79,12 @@ class BookRepositoryImpl(
     override suspend fun updateBook(book: Book) {
         withContext(dispatcher) {
             bookDao.update(convertBookToBookEntity(book))
+        }
+    }
+
+    override suspend fun getBookById(id: String): Book {
+        return withContext(dispatcher) {
+            convertBookEntityToBook(bookDao.getBook(id))
         }
     }
 

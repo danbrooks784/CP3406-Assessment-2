@@ -17,6 +17,8 @@ interface BookRepository {
 
     suspend fun updateBook(book: Book)
 
+    suspend fun getBookById(id: String): Book
+
     fun convertBookToBookEntity(book: Book): BookEntity
 
     fun convertBookEntityToBook(book: BookEntity): Book
