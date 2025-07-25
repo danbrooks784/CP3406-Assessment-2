@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cp3406assessment2.data.Book
 import com.example.cp3406assessment2.data.BookRepository
-import com.example.cp3406assessment2.view.ShelfUiState
+import com.example.cp3406assessment2.ui.state.ShelfUiState
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -30,5 +30,16 @@ class ShelfViewModel(
 
     fun retrieveShelf(): List<Book> {
         return shelfUiState.value.books
+    }
+
+    fun displayBookInfo(book: Book): String {
+        return "${book.title} (${book.year.take(4)})" +
+                "\nby ${
+                    if (book.authors.isEmpty()) "unknown author"
+                    else (book.authors.joinToString(separator = ", "))
+                }" +
+                "\nPages read: ${book.readPageCount} / ${book.totalPageCount} " +
+                "(${((book.readPageCount.toDouble() / book.totalPageCount.toDouble()) * 100).toInt()}%)" +
+                "\nRating: ${book.rating} / 5"
     }
 }
