@@ -5,7 +5,9 @@ import com.example.cp3406assessment2.data.api.BookAPI
 import com.example.cp3406assessment2.data.database.BookDatabase
 import com.example.cp3406assessment2.data.BookRepository
 import com.example.cp3406assessment2.data.BookRepositoryImpl
-import com.example.cp3406assessment2.viewmodel.BookViewModel
+import com.example.cp3406assessment2.viewmodel.EditBookViewModel
+import com.example.cp3406assessment2.viewmodel.SearchViewModel
+import com.example.cp3406assessment2.viewmodel.ShelfViewModel
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
@@ -24,7 +26,15 @@ val appModules = module {
     }
 
     single{
-        BookViewModel(get())
+        SearchViewModel(get())
+    }
+
+    single{
+        ShelfViewModel(get())
+    }
+
+    single{
+        EditBookViewModel(get())
     }
 
     single {
