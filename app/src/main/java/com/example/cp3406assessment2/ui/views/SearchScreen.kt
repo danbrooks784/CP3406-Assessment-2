@@ -1,24 +1,16 @@
-package com.example.cp3406assessment2.ui
+package com.example.cp3406assessment2.ui.views
 
-/*
-    TODO: Input validation
-*/
-
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -38,38 +30,53 @@ fun SearchScreen(
 ) {
     var query by remember { mutableStateOf("") }
 
-    Column {
-        Text(
-            text = "Search for a book",
-            fontSize = 30.sp,
-            modifier = Modifier.padding(16.dp).align(alignment = Alignment.CenterHorizontally)
-        )
+    Scaffold(
+        topBar = {
+            BookTopAppBar() { }
+        },
 
-        TextField(
-            value = query,
-            onValueChange = { query = it },
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Search
-            ),
-            keyboardActions = KeyboardActions(
-                onSearch = { onSearch(query) }
-            ),
-            modifier = Modifier.padding(16.dp).fillMaxWidth()
-        )
+        bottomBar = {
+            BookBottomAppBar() { }
+        },
 
-        Button(
-            onClick = { onSearch(query) },
-            modifier = Modifier.fillMaxWidth(0.7f).align(Alignment.CenterHorizontally)
+        modifier = Modifier.fillMaxSize()
+
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier.padding(innerPadding)
         ) {
             Text(
-                text = "Search",
-                modifier = Modifier.padding(horizontal = 8.dp)
+                text = "Search for a book",
+                fontSize = 30.sp,
+                modifier = Modifier.padding(16.dp).align(alignment = Alignment.CenterHorizontally)
             )
-            Icon(
-                Icons.Default.Search,
-                contentDescription = "Search button"
+
+            TextField(
+                value = query,
+                onValueChange = { query = it },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Search
+                ),
+                keyboardActions = KeyboardActions(
+                    onSearch = { onSearch(query) }
+                ),
+                modifier = Modifier.padding(16.dp).fillMaxWidth()
             )
+
+            Button(
+                onClick = { onSearch(query) },
+                modifier = Modifier.fillMaxWidth(0.7f).align(Alignment.CenterHorizontally)
+            ) {
+                Text(
+                    text = "Search",
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
+                Icon(
+                    Icons.Default.Search,
+                    contentDescription = "Search button"
+                )
+            }
         }
     }
 }
