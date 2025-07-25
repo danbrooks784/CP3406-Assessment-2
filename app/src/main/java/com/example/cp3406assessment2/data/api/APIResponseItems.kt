@@ -6,6 +6,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class APIResponseItems(
+    @SerialName("id")
+    val id: String,
+
     @SerialName("volumeInfo")
     val volumeInfo: Book
 )
