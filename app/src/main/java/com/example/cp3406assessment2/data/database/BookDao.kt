@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookDao {
-    @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(bookEntity: BookEntity)
 
     @Update
@@ -20,7 +20,7 @@ interface BookDao {
     suspend fun delete(bookEntity: BookEntity)
 
     @Query("SELECT * FROM books WHERE id = :id")
-    fun getBook(id: String): Flow<BookEntity>
+    fun getBook(id: String): BookEntity
 
     @Query("SELECT * FROM books")
     fun getAllBooks(): Flow<List<BookEntity>>
