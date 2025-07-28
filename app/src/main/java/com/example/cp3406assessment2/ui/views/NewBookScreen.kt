@@ -36,7 +36,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditBookScreen(
+fun NewBookScreen(
     book: Book,
     navigateBack: () -> Unit
 ) {
@@ -130,32 +130,15 @@ fun EditBookScreen(
                 modifier = Modifier.align(alignment = Alignment.CenterHorizontally)
             )
 
-            Row(
-                modifier = Modifier
-                    .padding(horizontal = 32.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+            Button(
+                onClick = {
+                    viewModel.saveNewBook(readPageCount, rating, review)
+                    isButtonEnabled = false
+                },
+                enabled = isButtonEnabled,
+                modifier = Modifier.padding(16.dp).align(Alignment.CenterHorizontally)
             ) {
-                Button(
-                    onClick = {
-                        viewModel.updateBook(readPageCount, rating, review)
-                    },
-                    enabled = isButtonEnabled,
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Text("Save changes")
-                }
-
-                Button(
-                    onClick = {
-                        viewModel.removeBook()
-                        isButtonEnabled = false
-                    },
-                    enabled = isButtonEnabled,
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Text("Remove book from shelf")
-                }
+                Text("Add book")
             }
         }
     }
