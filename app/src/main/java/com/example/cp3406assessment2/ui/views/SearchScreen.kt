@@ -1,15 +1,21 @@
 package com.example.cp3406assessment2.ui.views
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -26,17 +32,46 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun SearchScreen(
+    navigateToHome: () -> Unit,
+    navigateToSearch: () -> Unit,
+    navigateToShelf: () -> Unit,
     onSearch: (String) -> Unit
 ) {
     var query by remember { mutableStateOf("") }
 
     Scaffold(
-        topBar = {
-            BookTopAppBar() { }
-        },
-
         bottomBar = {
-            BookBottomAppBar() { }
+            BottomAppBar {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 56.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    IconButton(
+                        onClick = { navigateToHome() }
+                    ) {
+                        Icon(
+                            Icons.Default.Home,
+                            contentDescription = "Home button"
+                        )
+                    }
+                    IconButton(
+                        onClick = { navigateToSearch() }
+                    ) {
+                        Icon(
+                            Icons.Default.Search,
+                            contentDescription = "Search button"
+                        )
+                    }
+                    IconButton(
+                        onClick = { navigateToShelf() }
+                    ) {
+                        Icon(
+                            Icons.AutoMirrored.Filled.List,
+                            contentDescription = "Shelf button"
+                        )
+                    }
+                }
+            }
         },
 
         modifier = Modifier.fillMaxSize()
@@ -80,34 +115,3 @@ fun SearchScreen(
         }
     }
 }
-
-//            Box {
-//                Button(
-//                    onClick = { isExpanded = !isExpanded }
-//                ) {
-//                    Text(
-//                        text = "Search by: $filter",
-//                        modifier = Modifier.padding(horizontal = 8.dp)
-//                    )
-//                    Icon(
-//                        Icons.Default.KeyboardArrowDown,
-//                        contentDescription = "Filter button"
-//                    )
-//                }
-//
-//                DropdownMenu(
-//                    expanded = isExpanded,
-//                    onDismissRequest = { isExpanded = false },
-//                    modifier = Modifier.fillMaxWidth(0.4f)
-//                ) {
-//                    DropdownMenuItem(
-//                        text = { Text("Title") },
-//                        onClick = { filter = "title" }
-//                    )
-//
-//                    DropdownMenuItem(
-//                        text = { Text("Author") },
-//                        onClick = { filter = "author" }
-//                    )
-//                }
-//            }
