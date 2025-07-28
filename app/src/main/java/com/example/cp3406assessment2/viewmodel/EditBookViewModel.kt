@@ -1,6 +1,5 @@
 package com.example.cp3406assessment2.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cp3406assessment2.data.Book
@@ -18,14 +17,21 @@ class EditBookViewModel(
         editBookUiState.value.book = book
     }
 
-    fun saveBook(readPageCount: Int, rating: Int, review: String) {
-        if (readPageCount <= editBookUiState.value.book.totalPageCount) {
-            viewModelScope.launch {
-                editBookUiState.value.book.readPageCount = readPageCount
-                editBookUiState.value.book.rating = rating
-                editBookUiState.value.book.review = review
-                bookRepository.insertBook(editBookUiState.value.book)
-            }
+    fun saveNewBook(readPageCount: Int, rating: Int, review: String) {
+        viewModelScope.launch {
+            editBookUiState.value.book.readPageCount = readPageCount
+            editBookUiState.value.book.rating = rating
+            editBookUiState.value.book.review = review
+            bookRepository.insertBook(editBookUiState.value.book)
+        }
+    }
+
+    fun updateBook(readPageCount: Int, rating: Int, review: String) {
+        viewModelScope.launch {
+            editBookUiState.value.book.readPageCount = readPageCount
+            editBookUiState.value.book.rating = rating
+            editBookUiState.value.book.review = review
+            bookRepository.updateBook(editBookUiState.value.book)
         }
     }
 
