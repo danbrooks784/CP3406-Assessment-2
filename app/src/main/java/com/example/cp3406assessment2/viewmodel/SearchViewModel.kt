@@ -2,6 +2,7 @@ package com.example.cp3406assessment2.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cp3406assessment2.data.Book
 import com.example.cp3406assessment2.data.BookRepository
 import com.example.cp3406assessment2.data.api.NetworkResult
 import com.example.cp3406assessment2.ui.state.SearchUiState
@@ -30,5 +31,14 @@ class SearchViewModel(
                 }
             }
         }
+    }
+
+    fun displayResultInfo(result: Book): String {
+        return "${result.title} (${result.year.take(4)})" +
+                "\nby ${
+                    if (result.authors.isEmpty()) "unknown author"
+                    else (result.authors.joinToString(separator = ", "))
+                }" +
+                "\nPages: ${result.totalPageCount}"
     }
 }
