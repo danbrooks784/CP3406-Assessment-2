@@ -57,7 +57,7 @@ fun AppNavigation() {
         ) {
             SearchResultScreen(
                 query = it.arguments?.getString("query").toString(),
-                navigateBack = { navController.popBackStack() },
+                navigateBack = { navController.navigate(Screens.SearchScreen.route) },
                 onAddButtonPressed = {
                     book: Book ->
                     navController.navigate(
@@ -74,7 +74,7 @@ fun AppNavigation() {
             )
         ) {
             NewBookScreen(
-                book = Json.decodeFromString((it.arguments?.getString("book") ?: "")),
+                book = Json.decodeFromString(it.arguments?.getString("book") ?: ""),
                 navigateBack = { navController.navigate(Screens.SearchScreen.route) }
             )
         }
@@ -100,7 +100,7 @@ fun AppNavigation() {
             )
         ) {
             EditBookScreen(
-                book = Json.decodeFromString((it.arguments?.getString("book") ?: "")),
+                book = Json.decodeFromString(it.arguments?.getString("book") ?: ""),
                 navigateBack = { navController.navigate(Screens.ShelfScreen.route) }
             )
         }
