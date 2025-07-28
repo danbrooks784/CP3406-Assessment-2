@@ -9,13 +9,7 @@ interface BookRepository {
 
     fun getBooksFromDatabase(): Flow<List<Book>>
 
-    suspend fun getFavouriteBooks(): Flow<List<Book>>
-
-    suspend fun getUnreadBooks(): Flow<List<Book>>
-
-    suspend fun getUnfinishedBooks(): Flow<List<Book>>
-
-    suspend fun getHighestRatedBooks(): Flow<List<Book>>
+    fun getUnfinishedBooks(): Flow<List<Book>>
 
     suspend fun insertBook(book: Book)
 

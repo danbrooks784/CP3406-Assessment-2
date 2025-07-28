@@ -1,5 +1,6 @@
 package com.example.cp3406assessment2.data
 
+import android.util.Log
 import com.example.cp3406assessment2.data.api.BookAPI
 import com.example.cp3406assessment2.data.api.NetworkResult
 import com.example.cp3406assessment2.data.database.BookDao
@@ -53,42 +54,10 @@ class BookRepositoryImpl(
         }
     }
 
-    override suspend fun getFavouriteBooks(): Flow<List<Book>> {
-        return withContext(dispatcher) {
-            bookDao.getFavouriteBooks().map { books ->
-                books.map { bookEntity ->
-                    convertBookEntityToBook(bookEntity)
-                }
-            }
-        }
-    }
-
-    override suspend fun getUnreadBooks(): Flow<List<Book>> {
-        return withContext(dispatcher) {
-            bookDao.getUnreadBooks().map { books ->
-                books.map { bookEntity ->
-                    convertBookEntityToBook(bookEntity)
-                }
-            }
-        }
-    }
-
-    override suspend fun getUnfinishedBooks(): Flow<List<Book>> {
-        return withContext(dispatcher) {
-            bookDao.getUnfinishedBooks().map { books ->
-                books.map { bookEntity ->
-                    convertBookEntityToBook(bookEntity)
-                }
-            }
-        }
-    }
-
-    override suspend fun getHighestRatedBooks(): Flow<List<Book>> {
-        return withContext(dispatcher) {
-            bookDao.getHighestRatedBooks().map { books ->
-                books.map { bookEntity ->
-                    convertBookEntityToBook(bookEntity)
-                }
+    override fun getUnfinishedBooks(): Flow<List<Book>> {
+        return bookDao.getUnfinishedBooks().map { books ->
+            books.map { bookEntity ->
+                convertBookEntityToBook(bookEntity)
             }
         }
     }

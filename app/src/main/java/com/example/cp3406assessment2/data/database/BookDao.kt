@@ -25,15 +25,6 @@ interface BookDao {
     @Query("SELECT * FROM books")
     fun getAllBooks(): Flow<List<BookEntity>>
 
-    @Query("SELECT * FROM books WHERE isFavourite = 1")
-    fun getFavouriteBooks(): Flow<List<BookEntity>>
-
-    @Query("SELECT * FROM books WHERE readPageCount = 0")
-    fun getUnreadBooks(): Flow<List<BookEntity>>
-
     @Query("SELECT * FROM books WHERE readPageCount < totalPageCount")
     fun getUnfinishedBooks(): Flow<List<BookEntity>>
-
-    @Query("SELECT * FROM books as a WHERE rating = (SELECT MAX(rating) FROM books as b WHERE a.id = b.id)")
-    fun getHighestRatedBooks(): Flow<List<BookEntity>>
 }
