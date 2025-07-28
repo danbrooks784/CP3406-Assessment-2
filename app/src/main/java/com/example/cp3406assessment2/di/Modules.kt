@@ -6,6 +6,7 @@ import com.example.cp3406assessment2.data.database.BookDatabase
 import com.example.cp3406assessment2.data.BookRepository
 import com.example.cp3406assessment2.data.BookRepositoryImpl
 import com.example.cp3406assessment2.viewmodel.EditBookViewModel
+import com.example.cp3406assessment2.viewmodel.HomeViewModel
 import com.example.cp3406assessment2.viewmodel.SearchViewModel
 import com.example.cp3406assessment2.viewmodel.ShelfViewModel
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -23,6 +24,10 @@ val appModules = module {
 
     single {
         Dispatchers.IO
+    }
+
+    single{
+        HomeViewModel(get())
     }
 
     single{
