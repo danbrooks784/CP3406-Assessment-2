@@ -1,6 +1,5 @@
 package com.example.cp3406assessment2.data
 
-import android.util.Log
 import com.example.cp3406assessment2.data.api.BookAPI
 import com.example.cp3406assessment2.data.api.NetworkResult
 import com.example.cp3406assessment2.data.database.BookDao
