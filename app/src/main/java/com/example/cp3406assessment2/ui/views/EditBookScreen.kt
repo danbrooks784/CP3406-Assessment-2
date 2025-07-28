@@ -26,6 +26,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -51,7 +52,7 @@ fun EditBookScreen(
     var sliderPosition by remember { mutableFloatStateOf(book.rating.toFloat()) }
     var rating by remember { mutableIntStateOf(book.rating) }
 
-    var review by remember { mutableStateOf("") }
+    var review by remember { mutableStateOf(uiState.book.review) }
 
     var isButtonEnabled by remember { mutableStateOf(true) }
 
@@ -139,6 +140,7 @@ fun EditBookScreen(
                 Button(
                     onClick = {
                         viewModel.updateBook(readPageCount, rating, review)
+                        isButtonEnabled = false
                     },
                     enabled = isButtonEnabled,
                     modifier = Modifier.padding(16.dp)
@@ -154,7 +156,10 @@ fun EditBookScreen(
                     enabled = isButtonEnabled,
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    Text("Remove book from shelf")
+                    Text(
+                        text = "Remove book from shelf",
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
         }
