@@ -5,19 +5,19 @@
       <SelectionState runConfigName="CP3406 Assessment 2">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="daoInsert_insertsBookToDatabase()">
+      <SelectionState runConfigName="bookRepositorySearchByQuery_returnsNetworkResultListOfBooks()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="daoUpdate_updatesBookInDatabase()">
+      <SelectionState runConfigName="bookRepositoryGetBooksFromDatabase_returnsAllBooksFromDatabase()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="daoGetAllBooks_returnsAllBooksFromDatabase()">
+      <SelectionState runConfigName="bookRepositoryGetUnfinishedBooks_returnsAllUnfinishedBooksFromDatabase()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="daoDelete_deletesBookFromDatabase()">
+      <SelectionState runConfigName="bookRepositoryUpdateBook_updatesBookInDatabase()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="daoGetBook_returnsBookWithGivenID()">
+      <SelectionState runConfigName="Tests in 'com.example.cp3406assessment2'">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
