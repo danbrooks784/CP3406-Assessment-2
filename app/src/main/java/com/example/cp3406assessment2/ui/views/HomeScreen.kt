@@ -84,10 +84,10 @@ fun HomeScreen(
 
     ) { innerPadding ->
         Column(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding).fillMaxWidth()
         ) {
             Text(
-                text = "Welcome back.",
+                text = "Welcome back",
                 fontSize = 40.sp,
                 modifier = Modifier.padding(16.dp).align(alignment = Alignment.CenterHorizontally)
             )
@@ -103,9 +103,7 @@ fun HomeScreen(
                 Text("Go to search")
             }
 
-            if (uiState.unfinishedBooks.isEmpty()) {
-                Text("You have no unread books! You can find more books to read in the search menu.")
-            } else {
+            if (!uiState.unfinishedBooks.isEmpty()) {
                 Text(
                     text = "Or pick up an unfinished book:",
                     fontSize = 20.sp,
@@ -127,7 +125,8 @@ fun HomeScreen(
                                 )
                                 Button(
                                     onClick = { onEditButtonPressed(book) },
-                                    modifier = Modifier.padding(16.dp).align(Alignment.CenterVertically)
+                                    modifier = Modifier.padding(16.dp)
+                                        .align(Alignment.CenterVertically)
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Edit,
