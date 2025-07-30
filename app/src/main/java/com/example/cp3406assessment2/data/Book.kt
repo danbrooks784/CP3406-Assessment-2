@@ -21,7 +21,7 @@ data class Book(
     val totalPageCount: Int = 0,
 
     var readPageCount: Int = 0,
-    var rating: Int = 0,
+    var rating: Int = 1,
     var review: String = "Review",
     var isFavourite: Boolean = false
 )
