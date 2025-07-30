@@ -1,6 +1,7 @@
 [versions]
 agp = "8.10.1"
 coilCompose = "3.2.0"
+koinTestJunit4 = "3.4.3"
 kotlin = "2.1.0"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -15,6 +16,7 @@ uiTextGoogleFonts = "1.8.3"
 koinAndroid = "3.4.3"
 koinAndroidxCompose = "3.4.6"
 koinCore = "3.4.3"
+koinTest = "3.4.3"
 retrofit = "2.11.0"
 retrofitSerializationConverter = "1.0.0"
 serializationJson = "1.8.0"
@@ -44,6 +46,8 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koinTest" }
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koinTestJunit4" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 retrofit = { module = "com.squareup.retrofit2:retrofit" , version.ref = "retrofit" }
 retrofit-serialization = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofitSerializationConverter" }
