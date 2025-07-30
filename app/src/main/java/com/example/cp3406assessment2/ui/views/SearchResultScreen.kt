@@ -111,7 +111,10 @@ fun SearchResultScreen(
             AnimatedVisibility(
                 visible = uiState.error != null
             ) {
-                Text("Error retrieving data. Try searching a different phrase.")
+                Text(
+                    text = "Error retrieving data. Try searching a different phrase.",
+                    modifier = Modifier.padding(16.dp)
+                )
             }
         }
     }
