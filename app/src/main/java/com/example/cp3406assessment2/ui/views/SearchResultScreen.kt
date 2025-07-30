@@ -73,7 +73,9 @@ fun SearchResultScreen(
             AnimatedVisibility(
                 visible = uiState.isLoading
             ) {
-                CircularProgressIndicator()
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
             }
 
             AnimatedVisibility(
@@ -109,7 +111,7 @@ fun SearchResultScreen(
             AnimatedVisibility(
                 visible = uiState.error != null
             ) {
-                Text(uiState.error ?: "")
+                Text("Error retrieving data. Try searching a different phrase.")
             }
         }
     }
