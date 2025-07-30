@@ -2,7 +2,22 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-      <SelectionState runConfigName="app">
+      <SelectionState runConfigName="CP3406 Assessment 2">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="daoInsert_insertsBookToDatabase()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="daoUpdate_updatesBookInDatabase()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="daoGetAllBooks_returnsAllBooksFromDatabase()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="daoDelete_deletesBookFromDatabase()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="daoGetBook_returnsBookWithGivenID()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
