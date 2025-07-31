@@ -24,10 +24,6 @@ class ShelfViewModel(
                 initialValue = ShelfUiState()
             )
 
-    fun updateShelf() {
-        bookRepository.getBooksFromDatabase().map { ShelfUiState(books = it) }
-    }
-
     fun retrieveShelf(): List<Book> {
         return shelfUiState.value.books
     }
