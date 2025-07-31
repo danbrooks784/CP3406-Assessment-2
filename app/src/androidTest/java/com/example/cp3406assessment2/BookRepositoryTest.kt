@@ -53,7 +53,7 @@ class BookRepositoryTest : Application() {
 
     @Test
     @Throws(Exception::class)
-    fun bookRepositoryTestCleanDatabase_removesAllProvidedBooksFromDatabase() = runBlocking {
+    fun repositoryTestCleanDatabase_removesAllProvidedBooksFromDatabase() = runBlocking {
         bookRepository.insertBook(testBook1)
         bookRepository.insertBook(testBook2)
         cleanDatabase(listOf(testBook1, testBook2))
@@ -63,7 +63,7 @@ class BookRepositoryTest : Application() {
 
     @Test
     @Throws(Exception::class)
-    fun bookRepositorySearchByQuery_returnsNetworkResultListOfBooks() = runBlocking {
+    fun repositorySearchByQuery_returnsNetworkResultListOfBooks() = runBlocking {
         when (val result = bookRepository.searchByQuery("and then there were none")) {
             is NetworkResult.Success -> {
                 assertEquals(result.data[0], testBook1Default)
@@ -79,7 +79,7 @@ class BookRepositoryTest : Application() {
 
     @Test
     @Throws(Exception::class)
-    fun bookRepositoryGetBooksFromDatabase_returnsAllBooksFromDatabase() = runBlocking {
+    fun repositoryGetBooksFromDatabase_returnsAllBooksFromDatabase() = runBlocking {
         bookRepository.insertBook(testBook1)
         bookRepository.insertBook(testBook2)
         val allBooks = bookRepository.getBooksFromDatabase().first()
@@ -91,7 +91,7 @@ class BookRepositoryTest : Application() {
 
     @Test
     @Throws(Exception::class)
-    fun bookRepositoryGetUnfinishedBooks_returnsAllUnfinishedBooksFromDatabase() = runBlocking {
+    fun repositoryGetUnfinishedBooks_returnsAllUnfinishedBooksFromDatabase() = runBlocking {
         bookRepository.insertBook(testBook1)
         bookRepository.insertBook(testBook2)
         val unfinishedBooks = bookRepository.getUnfinishedBooks().first()
@@ -102,7 +102,7 @@ class BookRepositoryTest : Application() {
 
     @Test
     @Throws(Exception::class)
-    fun bookRepositoryInsertBook_insertsBookToDatabase() = runBlocking {
+    fun repositoryInsertBook_insertsBookToDatabase() = runBlocking {
         bookRepository.insertBook(testBook1)
         val allBooks = bookRepository.getBooksFromDatabase().first()
         assertEquals(allBooks[0], testBook1)
@@ -112,7 +112,7 @@ class BookRepositoryTest : Application() {
 
     @Test
     @Throws(Exception::class)
-    fun bookRepositoryDeleteBook_removesBookFromDatabase() = runBlocking {
+    fun repositoryDeleteBook_removesBookFromDatabase() = runBlocking {
         bookRepository.insertBook(testBook1)
         bookRepository.deleteBook(testBook1)
         val allBooks = bookRepository.getBooksFromDatabase().first()
@@ -121,7 +121,7 @@ class BookRepositoryTest : Application() {
 
     @Test
     @Throws(Exception::class)
-    fun bookRepositoryUpdateBook_updatesBookInDatabase() = runBlocking {
+    fun repositoryUpdateBook_updatesBookInDatabase() = runBlocking {
         bookRepository.insertBook(testBook1Default)
         bookRepository.updateBook(testBook1)
         val allBooks = bookRepository.getBooksFromDatabase().first()
@@ -132,7 +132,7 @@ class BookRepositoryTest : Application() {
 
     @Test
     @Throws(Exception::class)
-    fun bookRepositoryGetBookById_returnsBookWithGivenId() = runBlocking {
+    fun repositoryGetBookById_returnsBookWithGivenId() = runBlocking {
         bookRepository.insertBook(testBook1)
         val book = bookRepository.getBookById(testBook1.id)
         assertEquals(book, testBook1)
@@ -142,14 +142,14 @@ class BookRepositoryTest : Application() {
 
     @Test
     @Throws(Exception::class)
-    fun bookRepositoryConvertBookEntityToBook_returnsBook() = runBlocking {
+    fun repositoryConvertBookEntityToBook_returnsBook() = runBlocking {
         val convertedBookEntity = bookRepository.convertBookEntityToBook(testBookEntity)
         assertEquals(testBook1, convertedBookEntity)
     }
 
     @Test
     @Throws(Exception::class)
-    fun bookRepositoryConvertBookToBookEntity_returnsBookEntity() = runBlocking {
+    fun repositoryConvertBookToBookEntity_returnsBookEntity() = runBlocking {
         val convertedBook = bookRepository.convertBookToBookEntity(testBook1)
         assertEquals(testBookEntity, convertedBook)
     }
