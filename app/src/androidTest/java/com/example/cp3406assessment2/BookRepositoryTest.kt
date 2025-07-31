@@ -45,18 +45,12 @@ class BookRepositoryTest : Application() {
         230, 5, "Great mystery novel", true
     )
 
-    suspend fun cleanDatabase(books: List<Book>) {
-        for (book in books) {
-            bookRepository.deleteBook(book)
-        }
-    }
-
     @Test
     @Throws(Exception::class)
     fun repositoryTestCleanDatabase_removesAllProvidedBooksFromDatabase() = runBlocking {
         bookRepository.insertBook(testBook1)
         bookRepository.insertBook(testBook2)
-        cleanDatabase(listOf(testBook1, testBook2))
+        bookRepository.cleanDatabase()
         val allBooks = bookRepository.getBooksFromDatabase().first()
         assertEquals(allBooks, emptyList<Book>())
     }
@@ -86,7 +80,7 @@ class BookRepositoryTest : Application() {
         assertEquals(allBooks[0], testBook1)
         assertEquals(allBooks[1], testBook2)
 
-        cleanDatabase(listOf(testBook1, testBook2))
+        bookRepository.cleanDatabase()
     }
 
     @Test
@@ -97,7 +91,7 @@ class BookRepositoryTest : Application() {
         val unfinishedBooks = bookRepository.getUnfinishedBooks().first()
         assertEquals(unfinishedBooks[0], testBook2)
 
-        cleanDatabase(listOf(testBook1, testBook2))
+        bookRepository.cleanDatabase()
     }
 
     @Test
@@ -107,7 +101,7 @@ class BookRepositoryTest : Application() {
         val allBooks = bookRepository.getBooksFromDatabase().first()
         assertEquals(allBooks[0], testBook1)
 
-        cleanDatabase(listOf(testBook1))
+        bookRepository.cleanDatabase()
     }
 
     @Test
@@ -127,7 +121,7 @@ class BookRepositoryTest : Application() {
         val allBooks = bookRepository.getBooksFromDatabase().first()
         assertEquals(allBooks[0], testBook1)
 
-        cleanDatabase(listOf(testBook1))
+        bookRepository.cleanDatabase()
     }
 
     @Test
@@ -137,7 +131,7 @@ class BookRepositoryTest : Application() {
         val book = bookRepository.getBookById(testBook1.id)
         assertEquals(book, testBook1)
 
-        cleanDatabase(listOf(testBook1))
+        bookRepository.cleanDatabase()
     }
 
     @Test

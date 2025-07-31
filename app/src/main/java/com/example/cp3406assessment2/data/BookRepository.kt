@@ -22,4 +22,6 @@ interface BookRepository {
     fun convertBookToBookEntity(book: Book): BookEntity
 
     fun convertBookEntityToBook(book: BookEntity): Book
+
+    suspend fun cleanDatabase()
 }

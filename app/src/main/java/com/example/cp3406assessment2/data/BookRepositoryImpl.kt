@@ -6,6 +6,7 @@ import com.example.cp3406assessment2.data.database.BookDao
 import com.example.cp3406assessment2.data.database.BookEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlin.toString
@@ -111,5 +112,14 @@ class BookRepositoryImpl(
             review = bookEntity.review,
             isFavourite = bookEntity.isFavourite
         )
+    }
+
+    override suspend fun cleanDatabase() {
+        return withContext(dispatcher) {
+            val books = getBooksFromDatabase().first()
+            for (book in books) {
+                deleteBook(book)
+            }
+        }
     }
 }
