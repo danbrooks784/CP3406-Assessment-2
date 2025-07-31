@@ -5,19 +5,19 @@
       <SelectionState runConfigName="CP3406 Assessment 2">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="bookRepositorySearchByQuery_returnsNetworkResultListOfBooks()">
+      <SelectionState runConfigName="viewModelRemoveBook_removesBookFromDatabase()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="bookRepositoryGetBooksFromDatabase_returnsAllBooksFromDatabase()">
+      <SelectionState runConfigName="EditBookViewModelTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="bookRepositoryGetUnfinishedBooks_returnsAllUnfinishedBooksFromDatabase()">
+      <SelectionState runConfigName="viewModel_correctlyInitialisesUiState()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="bookRepositoryUpdateBook_updatesBookInDatabase()">
+      <SelectionState runConfigName="viewModelSearchQuery_returnsListOfBooks()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="Tests in 'com.example.cp3406assessment2'">
+      <SelectionState runConfigName="viewModelDisplayResultInfo_returnsStringOfBookInfo()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
