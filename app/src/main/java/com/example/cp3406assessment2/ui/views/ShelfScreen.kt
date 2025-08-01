@@ -44,8 +44,6 @@ fun ShelfScreen(
     val viewModel: ShelfViewModel = koinViewModel()
     val uiState: ShelfUiState by viewModel.shelfUiState.collectAsStateWithLifecycle()
 
-    viewModel.retrieveShelf()
-
     Scaffold(
         bottomBar = {
             BottomAppBar {

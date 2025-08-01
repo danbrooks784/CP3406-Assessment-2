@@ -24,10 +24,6 @@ class ShelfViewModel(
                 initialValue = ShelfUiState()
             )
 
-    fun retrieveShelf(): List<Book> {
-        return shelfUiState.value.books
-    }
-
     fun displayBookInfo(book: Book): String {
         return "${book.title} (${book.year.take(4)})" +
                 "\nby ${
